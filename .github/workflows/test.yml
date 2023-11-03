@@ -12,7 +12,7 @@ jobs:
     env:
       MONGO_URL: ${{ secrets.MONGO_URL }}
       MONGO_USER: ${{ vars.MONGO_USER }}
-      MONGO_PASSWORD: ${{ secrets.MONGO_PASSOWRD }}
+      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
     container: python:3.8.18-bullseye
     services:
       mongo:
@@ -21,7 +21,7 @@ jobs:
           - 27017:27017
         env:
           MONGO_INITDB_ROOT_USERNAME: ${{ vars.MONGO_USER }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_PASSOWRD }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
     steps:
       - name: checkout code
         uses: actions/checkout@v3
