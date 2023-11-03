@@ -1,0 +1,24 @@
+name: build-image
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+jobs:
+  build-image:
+    runs-on: ubuntu-22.04
+    env:
+      DOCKER_HUB_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
+      DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+    steps:
+      - name: checkout code
+        run: actions/checkout@v3
+      - name: docker login
+        run: |
+          echo $DOCKER_HUB_TOKEN > my_password.txt
+          cat ~/my_password.txt | docker login --username $DOCKER_USERNAME --password-stdin
+      - name: build iamge
+        run: |
+          docker image build -t hj212223/fastapi-python:latest .
+      - name: push image
+        run: docker image push hj212223/fastapi-python:latest
