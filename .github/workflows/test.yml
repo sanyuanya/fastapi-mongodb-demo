@@ -17,7 +17,6 @@ jobs:
     services:
       mongo:
         image: mongo
-
         ports:
           - 27017:27017
         env:
@@ -40,6 +39,9 @@ jobs:
       #    mongo
       - name: run pytest
         id: run-pytest
-        run: pytest
+        run: |
+          echo "$MONGO_USER"
+          echo "$MONGO_PASSWORD"
+          pytest
 
 
